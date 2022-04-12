@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+  <!--From https://codepen.io/frytyler/pen/EGdtg-->
+  <head>
+    <meta charset="UTF-8" />
+    <title>ML API</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <link rel="stylesheet" href="../static/style.css">
+    
+  </head>
+
+  <body>
+
+      <div class="container">
+        <div class="col-md-12 text-center">
+          <h1 id="title">Predict Student's Final Score</h1>
+        </div>
+        <form action="{{ url_for('predict')}}" method="post" >
+            <div class="form-row">
+                <div class="form-group col-md-3 ">
+                  <label for="age">Age</label>
+                  <select id="age" class="form-control" name="age" required>
+                    <option value="" disabled selected hidden>Choose...</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3 ">
+                  <label for="MEdu">Mother Education</label>
+                  <select id="MEdu" class="form-control" name="MEdu" required>
+                    <option value="" disabled selected hidden>Choose...</option>
+                    <option value="0">none</option>
+                    <option value="1"> 4th grade</option>
+                    <option value="2">5th to 9th grade</option>
+                    <option value="3">Secondary education</option>
+                    <option value="4">Higher education</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="FEdu">Father Education</label>
+                    <select id="FEdu" class="form-control" name="FEdu" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="0">none</option>
+                      <option value="1"> 4th grade</option>
+                      <option value="2">5th to 9th grade</option>
+                      <option value="3">Secondary education</option>
+                      <option value="4">Higher education</option>
+                    </select>
+                </div> 
+                <div class="form-group col-md-3">
+                    <label for="travelTime">Travel Time (Hrs)</label>
+                    <select id="travelTime" class="form-control" name="travelTime" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="1">Less than 15 mins</option>
+                      <option value="2">15 to 30 mins</option>
+                      <option value="3">30 to 60 mins</option>
+                      <option value="4">More than 1 hour</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label for="studyTIme">Study Time (Hrs) </label>
+                  <select id="studyTIme" class="form-control" name="studyTIme" required>
+                    <option value="" disabled selected hidden>Choose...</option>
+                    <option value="1">Less than 2 hours</option>
+                    <option value="2">2 to 5 hours</option>
+                    <option value="3">5 to 10 hours</option>
+                    <option value="4">More than 10 hours</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="inputMEdu">Past Class Failures</label>
+                  <select id="inputMEdu" class="form-control" name="inputMEdu" required>
+                    <option value="" disabled selected hidden>Choose...</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="familyQuality">Family Quality</label>
+                    <select id="familyQuality" class="form-control" name="familyQuality" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="1">Very bad</option>
+                      <option value="2">Bad</option>
+                      <option value="3">Normal</option>
+                      <option value="4">Good</option>
+                      <option value="5">Excellent</option>
+                      
+                    </select>
+                </div> 
+                <div class="form-group col-md-3">
+                    <label for="freeTime">Free Time (Hrs)</label>
+                    <select id="freeTime" class="form-control" name="freeTime" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                </div>
+            </div> 
+            <div class="form-row">
+                <div class="form-group col-md-3 ">
+                    <label for="goOut">Go out with friends</label>
+                    <select id="goOut" class="form-control" name="goOut" required>
+                        <option value="" disabled selected hidden>Choose...</option>
+                        <option value="1">Very low</option>
+                        <option value="2">Low</option>
+                        <option value="3">Normal</option>
+                        <option value="4">High</option>
+                        <option value="5">Very high</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="workdayalco">Workkday Alcohol Usage</label>
+                    <select id="workdayalco" class="form-control" name="workdayalco" required>
+                        <option value="" disabled selected hidden>Choose...</option>
+                        <option value="1">Very low</option>
+                        <option value="2">Low</option>
+                        <option value="3">Normal</option>
+                        <option value="4">High</option>
+                        <option value="5">Very high</option>
+                    </select>
+                </div> 
+                <div class="form-group col-md-3">
+                    <label for="weekendalco">WeekendAlcohol Usage</label>
+                    <select id="weekendalco" class="form-control" name="weekendalco" required>
+                        <option value="" disabled selected hidden>Choose...</option>
+                        <option value="1">Very low</option>
+                        <option value="2">Low</option>
+                        <option value="3">Normal</option>
+                        <option value="4">High</option>
+                        <option value="5">Very high</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3 ">
+                  <label for="health">Health</label>
+                  <select id="health" class="form-control" name="health" required>
+                    <option value="" disabled selected hidden>Choose...</option>
+                    <option value="1">Very bad</option>
+                    <option value="2">Bad</option>
+                    <option value="3">Normal</option>
+                    <option value="4">Good</option>
+                    <option value="5">Excellent</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label for="absences">Absences </label>
+                  <input id="absences" name="absences" class="form-control" type="number" min="0" max="100" placeholder="0 to 100"/>
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="p1Score">Period 1 Score</label>
+                  <input id="p1Score" name="p1Score" class="form-control" type="number" min="0" max="20" placeholder="0 to 20"/>
+                    
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="p2Score">Period 2 Score</label>
+                    <input id="p2Score" name="p2Score" class="form-control" type="number" min="0" max="20" placeholder="0 to 20"/>
+                      
+                    </select>
+                </div> 
+                <div class="form-group col-md-3">
+                    <label for="school">School</label>
+                    <select id="school" class="form-control" name="school" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="0">GP</option>
+                      <option value="1">MS</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="sex">Sex</label>
+                    <select id="sex" class="form-control" name="sex" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="0">Female</option>
+                      <option value="1">Male</option>
+                    </select>
+                </div><div class="form-group col-md-3">
+                    <label for="address">Address</label>
+                    <select id="address" class="form-control" name="address" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="0">Rural</option>
+                      <option value="1">Urban</option> 
+                    </select>
+                </div>
+            
+                <div class="form-group col-md-3">
+                    <label for="famSize">Family Size</label>
+                    <select id="famSize" class="form-control" name="famSize" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="0">Less Equal 3 </option>
+                      <option value="1">Greater than 3</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="pStatus">Parent's Status</label>
+                    <select id="pStatus" class="form-control" name="pStatus" required>
+                      <option value="" disabled selected hidden>Choose...</option>
+                      <option value="0">Living Together</option>
+                      <option value="1">Living Apart</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3 ">
+                    <label for="mJob">Mother's Job</label>
+                    <select id="mJob" class="form-control" name="mJob" required>
+                        <option value="" disabled selected hidden>Choose...</option>
+                        <option value="0">At home</option>
+                        <option value="1">Health care</option>
+                        <option value="2">Other</option>
+                        <option value="3">Civil services</option>
+                        <option value="4">Teacher</option>
+                        
+                    </select>
+                </div>
+                <div class="form-group col-md-3 ">
+                    <label for="fJob">Father's Job</label>
+                    <select id="fJob" class="form-control" name="fJob" required>
+                        <option value="" disabled selected hidden>Choose...</option>
+                        <option value="0">At home</option>
+                        <option value="1">Health care</option>
+                        <option value="2">Other</option>
+                        <option value="3">Civil services</option>
+                        <option value="4">Teacher</option>
+                        
+                    </select>
+                </div>
+                <div class="form-group col-md-3 ">
+                    <label for="reason">Reason to choose this school</label>
+                    <select id="reason" class="form-control" name="reason" required>
+                        <option value="" disabled selected hidden>Choose...</option>
+                        <option value="0">Course preference</option>
+                        <option value="1">Close to home</option>
+                        <option value="2">Other</option>
+                        <option value="3">School Reputation</option>  
+                    </select>
+                </div>
+                <div class="form-group col-md-3 ">
+                    <label for="guardian">student's guardian</label>
+                    <select id="guardian" class="form-control" name="guardian" required>
+                        <option value="" disabled selected hidden>Choose...</option>
+                        <option value="0">Father</option>
+                        <option value="1">Mother</option>
+                        <option value="2">Other</option>
+                    </select>
+                </div>
+                
+            <div class="form-row">
+                
+                <div class="form-group col-md-3">
+                    <label for="schoolSup">Extra School Support</label>
+                    <div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="schoolSup" id="schoolSup" value="0" checked>
+                            <label class="form-check-label" for="schoolSup">No</label>
+                        </div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="schoolSup" id="schoolSup" value="1">
+                            <label class="form-check-label" for="schoolSup">Yes</label>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="familySup">Extra Family Support</label>
+                    <div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="familySup" id="familySup" value="0" checked>
+                            <label class="form-check-label" for="familySup">No</label>
+                        </div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="familySup" id="familySup" value="1">
+                            <label class="form-check-label" for="familySup">Yes</label>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="paidClass">Paid Classes</label>
+                    <div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="paidClass" id="paidClass" value="0" checked>
+                            <label class="form-check-label" for="paidClass">No</label>
+                        </div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="paidClass" id="paidClass" value="1">
+                            <label class="form-check-label" for="paidClass">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="activities">Extra-curricular Activities</label>
+                    <div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="activities" id="activities" value="0" checked>
+                            <label class="form-check-label" for="activities">No</label>
+                        </div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="activities" id="activities" value="1">
+                            <label class="form-check-label" for="activities">Yes</label>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="internet">Internet access at home</label>
+                    <div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="internet" id="internet" value="0" checked>
+                            <label class="form-check-label" for="internet">No</label>
+                        </div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="internet" id="internet" value="1">
+                            <label class="form-check-label" for="internet">Yes</label>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="romantic">With a romantic relationship</label>
+                    <div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="romantic" id="romantic" value="0" checked>
+                            <label class="form-check-label" for="romantic">No</label>
+                        </div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="romantic" id="romantic" value="1">
+                            <label class="form-check-label" for="romantic">Yes</label>
+                        </div>
+                    </div>
+                </div>       
+                <div class="form-group col-md-3">
+                    <label for="nursery">Attended nursery school</label>
+                    <div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="nursery" id="nursery" value="0" checked>
+                            <label class="form-check-label" for="nursery">No</label>
+                        </div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="nursery" id="nursery" value="1">
+                            <label class="form-check-label" for="nursery">Yes</label>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="higher">Desire higher education</label>
+                    <div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="higher" id="higher" value="0" checked>
+                            <label class="form-check-label" for="higher">No</label>
+                        </div>
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input " type="radio" name="higher" id="higher" value="1">
+                            <label class="form-check-label" for="higher">Yes</label>
+                        </div>
+                    </div>
+                   
+                </div> 
+            </div>
+           
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-success btn-lg btn-block mt-5">Predict Student's Score</button>
+            </div>
+        </form>
+      </div>
+      <br />
+      <br />
+      <div id="prediction">
+
+          {{ prediction_text }}
+      </div>
+    </div>
+  </body>
+</html>
