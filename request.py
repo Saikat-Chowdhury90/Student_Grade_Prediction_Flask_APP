@@ -12,10 +12,10 @@ cols = ['school', 'sex', 'age', 'address', 'family_size', 'parents_status', 'mot
 values = ['GP', 'M', 18, 'R', 'GT3', 'T', 3, 2, 'other', 'other', 'course', 'mother', 1, 3, 0,
           'no', 'no', 'no', 'yes', 'no', 'yes', 'no', 'no', 5, 3, 2, 1, 1, 3, 1, 13, 12]
 
-# df = pd.DataFrame(values, columns=cols)
-# print(df.shape)
-# newdf = pd.get_dummies(df)
-# print(newdf.shape)
+df = pd.DataFrame(values, columns=cols)
+print(df.shape)
+newdf = pd.get_dummies(df)
+print(newdf.shape)
 
 dummycols = ['age', 'mother_education', 'father_education', 'commute_time',
              'study_time', 'failures', 'family_quality', 'free_time', 'go_out',

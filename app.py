@@ -5,7 +5,7 @@ import pickle
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
-grade = {0: "fair", 1: "good", 2: "poor"}
+grade = {0: "9.0 CGPA and above. You are on a good track keep it up", 1: "7.0 CGPA and above . Can do Better", 2: "below 6.0 CGPA . You need to work very hard"}
 options = [2, 2, 2, 2, 2, 5, 5, 4, 3, 2, 2, 2, 2, 2, 2, 2, 2]
 
 
@@ -31,12 +31,13 @@ def predict():
     final_features = [np.array(arr2)]
     print(final_features)
     prediction = model.predict(final_features)
+   
 
     output = grade[prediction[0]]
     print(final_features)
     print(output)
 
-    return render_template('index.html', prediction_text=' Student\'s Final Score should be {} !'.format(output))
+    return render_template('index.html', prediction_text=' Student\'s Final Score would be around => {} !'.format(output))
 
 
 @app.route('/predict_api', methods=['POST'])
